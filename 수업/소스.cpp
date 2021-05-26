@@ -6,6 +6,163 @@
 #include <time.h> // time()ÇÔ¼ö Æ÷ÇÔ ¶óÀÌºê·¯¸®
 #include <string.h>
 
+
+
+
+void Trans(char res[], int N, int B) {
+	int n = 33;
+	char rest, over[36] = { 0, };
+	for (int i = 10; i < 36; i++) {
+		over[i] = i + 55;
+	}
+	for (int i = 0; i<34; i++) {
+		if (N % B >= 10) {
+			rest = over[N % B];
+		}
+		else rest = (char)(N % B+48);
+		res[n] = rest;
+		N = N / B;
+		n--;
+	}
+}
+int main()
+{
+	char res[35] = { 0,};
+	int num, B;
+	bool p = false;
+	scanf("%d %d", &num, &B);
+	Trans(res, num, B);
+	for (int i = 0; i <= 33; i++) {
+
+		if (res[i] != '0') p=true;
+		if (p) printf("%c", res[i]);
+	}
+
+	return 0;
+}
+/*int GCD(int a, int b) {
+	int result, i=1000000;
+	while (1) {
+		if (a % i == 0 && b % i == 0) {
+			result = i;
+			break;
+		}
+		i--;
+	}
+	return result;
+}
+void Input(int arr[], int len) {
+	for (int i = 0; i < len; i++) {
+		scanf("%d",&arr[i]);
+	}
+	return;
+}
+long long SumGCD(int arr[], int len) {
+	long long result=0;
+	for (int j = 0; j < len; j++) {
+		for (int i = 0; i < len; i++) {
+			if (i==j) break;
+			result += GCD(arr[j], arr[i]);
+		}
+	}
+	return result;
+}
+int main()
+{
+	int TC, num;
+	long long int result;
+	int arr[101] = { 0 };
+	scanf("%d", &TC);
+	while (TC--) {
+		scanf("%d", &num);
+		Input(arr, num);
+		result = SumGCD(arr, num);
+		printf("%lld\n", result);
+	}
+	return 0;
+}*/ //ÇÔ¼öÀÀ¿ë 2
+
+/*void Input(char* InputName) {
+	scanf("%[^\n]s", InputName);
+	return;
+}
+void Upper(char* name) {
+	for (int i = 0; i < 1025; i++) {
+		if ((int)*(name + i) >= 97 && (int)*(name + i) <= 122) {
+			*(name + i) -= 32;
+		}
+	}
+}
+int main()
+{	
+	char buffer[1025] = { 0 };
+	Input(buffer);
+	Upper(buffer);
+	printf("%s\n", buffer);
+	return 0;
+}*/ //ÇÔ¼öÀÀ¿ë 1¹ø
+
+
+
+
+
+//int count=0;
+/*void sosu(int n) {
+	int i,t = 0;
+	if (n == 1) return;
+	for (i = 2; i <= n; i++) {
+		if (n % i == 0) t++;
+	}if (t == 1) count++;
+	t = 0;
+	sosu(--n);
+	
+}*/
+
+/*int main() {
+	int n, b,i,t=0;
+	scanf("%d", &n);
+	printf("%d", count);
+	for (b = 2; b <= n; b++) {
+		for (i = 2; i <= n; i++) {
+			if (b % i == 0) {
+				t++;
+			}
+			
+
+		}
+		if (t == 1)printf("%d\n", b);
+		t = 0;
+	}
+}*/
+
+
+/*long long int factorial(long long int n)
+{
+	if (n == 1)      // nÀÌ 1ÀÏ ¶§
+		return 1;    // 1À» ¹İÈ¯ÇÏ°í Àç±ÍÈ£ÃâÀ» ³¡³¿
+
+	return n * factorial(n - 1);    // n°ú factorial ÇÔ¼ö¿¡ n - 1À» ³Ö¾î¼­ ¹İÈ¯µÈ °ªÀ» °öÇÔ
+}
+
+int main()
+{
+	long long int n;
+	scanf("%lld", &n);
+	printf("%lld", factorial(n));
+
+	return 0;
+}*/
+
+
+/*int main() {
+	double n, f=1;
+	scanf("%lf", &n);
+	for (int i = 2; i <= n; i++) {
+		f *= i;
+	}
+	printf("%.0lf", f);
+}*/
+
 /*int main() {
 	char a[1000] = {"¿ìÈ÷ÆRÆRÈ÷È÷È÷È÷È÷È÷È÷È÷È÷¤ÓÈ÷"};
 	int i;
@@ -92,10 +249,12 @@ int main()
 }*/
 
 
-/*int jaegwi(int count) {
-	if (count == 0) return 0;
-	printf("%d ", count--);
-	return jaegwi(count);
+/*void jaegwi(int count) {
+	if (count == 1) return;
+	jaegwi(--count);
+	printf("%d ", count);
+	
+	
 }
 int main()
 {
@@ -103,7 +262,7 @@ int main()
 	scanf("%d", &n);
 	jaegwi(n);
 
-}*///´ä
+}//´ä*/
 /*int n,num=1;
 int jaegwi(int count) {
 	if (count == 0) return 0;
@@ -112,41 +271,32 @@ int jaegwi(int count) {
 }
 int main()
 {
-
-	scanf("%d", &n);
+	scanf_s("%d", &n);
 	jaegwi(n);
 
 }*///02¹ø ´ä
 
-/*void mix(int *x, int *y) {
-	int temp = *x;
-	*x = *y;
-	*y = temp;
-	printf("\nÃ¹ ¹øÂ° ÇÔ¼ö ½ÇÇàÁß x = %d, y = %d\n",*x,*y);
-	
-	temp = *x;
-	*x = *y;
-	*y = temp;
+/*void mix(int x, int y) {
+	int temp = x;
+	x = y;
+	y = temp;
+	printf("\nÃ¹ ¹øÂ° ÇÔ¼ö ½ÇÇàÁß x = %d, y = %d\n",x,y);
 }
 void mix2(int *x, int *y) {
 	int temp = *x;
 	*x = *y;
 	*y = temp;
 	printf("\nÃ¹ ¹øÂ° ÇÔ¼ö ½ÇÇàÁß x = %d, y = %d\n", *x, *y);
-
-	temp = *x;
-	*x = *y;
-	*y = temp;
 }
 int main()
 {
 	int a, b;
-	int* p=&a, * t=&b;
+	
 	printf("µÎ ¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä. : ");
 	scanf("%d %d", &a, &b);
-	mix(p, t);
+	mix(a, b);
 	printf("Ã¹ ¹øÂ° ÇÔ¼ö ½ÇÇàÈÄ a = %d, b = %d\n", a, b);
-	mix2(p, t);
+	mix2(&a, &b);
 	printf("µÎ ¹øÂ° ÇÔ¼ö ½ÇÇàÈÄ a = %d, b = %d", a, b);
 }*///07¹ø ´ä
 
