@@ -6,10 +6,316 @@
 #include <time.h> // time()함수 포함 라이브러리
 #include <string.h>
 
+typedef struct point
+{
+	int xpos;
+	int ypos;
+} Point;
+typedef struct rectangle {
+	Point locate1;
+	Point locate2;
+}rectangle;
+
+void ShowRecArea(rectangle rect) {
+	int nulbi = (rect.locate2.xpos - rect.locate1.xpos) * (rect.locate2.ypos - rect.locate1.ypos);
+	int serogili = rect.locate2.ypos - rect.locate1.ypos;
+	printf("넓이 : %d\n",nulbi);
+	printf("좌 상단 : [%d, %d]\n", rect.locate1.xpos, rect.locate1.ypos);
+	printf("좌 하단 : [%d, %d]\n", rect.locate1.xpos, rect.locate1.ypos+serogili);
+	printf("우 상단 : [%d, %d]\n", rect.locate2.xpos,rect.locate2.ypos-serogili);
+	printf("우 하단 : [%d, %d]\n", rect.locate2.xpos, rect.locate2.ypos);
+}
+
+void ShowRecPos(rectangle rect) {
+	int count=0;
+	for (int y = rect.locate2.ypos; y >=0 &&count !=2; y--) {
+		for (int x = 0; x <= 100&& count!=2; x++) {
+			if (rect.locate1.xpos == x && rect.locate1.ypos == y) {
+				printf(".");
+				count++;
+			}
+			else if (rect.locate2.xpos == x && rect.locate2.ypos == y) {
+				printf(".");
+				count++;
+			}
+			else printf(" ");
+		}printf("\n");
+	}
+}
+
+int main()
+{
+	rectangle rec1 = { {1, 1}, {4, 4} };
+	rectangle rec2 = { {0, 0}, {7, 5} };
+	ShowRecArea(rec1);
+	ShowRecPos(rec1);
+	ShowRecArea(rec2);
+	ShowRecPos(rec2);
+}
+
+/*typedef struct Point {
+	int xpos;
+	int ypos;
+}Point;
+void Swap(Point *po1, Point *po2) {
+	Point temp;
+	temp = (*po1);
+	*po1 = *po2;
+	*po2 = temp;
+
+}
+int main() {
+	Point p1 = { 10,20 };
+	Point p2 = { 100,200 };
+	Swap(&p1, &p2);
+
+	printf("p1 : [%d, %d]\n", p1.xpos, p1.ypos);
+	printf("p2 : [%d, %d]\n", p2.xpos, p2.ypos);
+}*/
+
+/*typedef struct Point {
+	int xpos;
+	int ypos;
+}Point;
+typedef struct circle {
+	double radius;
+	Point* center;
+}Circle;
+int main() {
+	Point cen = { 2,7 };
+	double rad = 5.5;
+	Circle ring = { rad,&cen };
+	printf("원의 반지름 : %g \n", ring.radius);
+	printf("원의 중심 [%d %d] \n", (ring.center)->xpos, (ring.center)->ypos);
+}*/
 
 
 
-void Trans(char res[], int N, int B) {
+/* struct Person {
+	int age;
+	char name[101];
+	int join;
+}Person;
+Person arr[1000001];
+int main() {
+	int n, i;
+	scanf("%d", &n);
+	for (i = 1; i <= n; i++) {
+		scanf("%d %s", &arr[i].age, arr[i].name);
+		arr[i].join = 1;
+	}
+	Person* ptr = arr;
+	printf("\n출력\n");
+	for (i = 1; i <= n; i++) {
+		printf("%d %s\n", (ptr + i)->age, (ptr + i)->name);
+	}
+}*/
+
+
+
+/*typedef struct Person {
+	char name[20];
+	char phoneNum[20];
+	int age;
+}Person;
+int main() {
+	Person arr[3];
+	int i;
+	for (i = 0; i < 3; i++) {
+		scanf("%s %s %d", arr[i].name, arr[i].phoneNum, &arr[i].age);
+	}
+	for (i = 0; i < 3; i++) {
+		printf("%s %s %d\n", arr[i].name, arr[i].phoneNum, arr[i].age);
+	}
+}*/
+
+
+/*typedef struct Point {
+	int xpos;
+	int ypos;
+}Point;
+int main() {
+	Point arr[3];
+	int i;
+	for (i = 0; i < 3; i++) {
+		printf("점의 좌표 입력 : ");
+		scanf("%d %d", &arr[i].xpos, &arr[i].ypos);
+	}
+	for (i = 0; i < 3; i++) {
+		printf("[%d, %d]", arr[i].xpos, arr[i].ypos);
+	}
+	return 0;
+}*/
+
+/*void change(int *a,int *b) {
+	int temp;
+	temp = *a;
+	*a =*b;
+	*b = temp;
+}
+void sort(int* a, int n) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j <= n-1; j++) {
+			if (a[j] > a[j + 1]) {
+				change(&a[j], &a[j + 1]);
+			}
+
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		printf("%d ", a[i]);
+	}
+}
+int main() {
+	int data[10] = { 5,2,3,7,1,9,4,6,8,10 },k;
+	scanf("%d", &k);
+	sort(data, k);
+
+}*/
+
+
+
+
+
+/*void findmm(int a[], int n,int *max,int *min) {
+	*max = a[0]; *min = (a[0] < a[1]) ? a[0] : a[1];
+	for (int i = 0; i < n-1; i++) {
+		*max = (*max > a[i+1]) ? *max : a[i + 1];
+		*min = (*min < a[i + 1]) ? *min : a[i + 1];
+	}
+	for (int i = 0; i < n; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("최대 : %d  최소 : %d\n", *max, *min);
+}
+int main() {
+	int a[10] = {5,2,3,7,1,9,4,6,8,10},min,max;
+	findmm(a, 10, &max, &min);
+	findmm(a, 4, &max, &min);
+	findmm(a+3, 5, &max, &min);
+}*///8번
+
+
+
+
+
+
+
+/*int findmax(int a[], int n) {
+	int result=a[0];
+	for (int i = 0; i < n-1; i++) {
+		result = (result > a[i+1]) ? result : a[i + 1];
+	}
+	return result;
+}
+int main() {
+	int a[10] = {5,2,3,7,1,9,4,6,8,10},n;
+	scanf("%d", &n);
+	printf("최대 = %d", findmax(a, n));
+}*///7번
+
+
+/*int main() {
+	int n, j, result = 1;
+	printf("한 개의 정수를 입력하시오 : ");
+	scanf("%d", &n);
+	for (j = 1; j <= n; j++) {
+		result *= j;
+	}
+	printf("%d! = %d",n, result);
+}*///6-2 답
+
+/*int factorial(int n) {
+	if (n == 1) return 1;
+	return n * factorial(n - 1);
+}
+int main() {
+	int n;
+	printf("한 개의 정수를 입력하시오 : ");
+	scanf("%d", &n);
+	printf("%d! = %d", n, factorial(n));
+}//6-1 답*/
+
+
+/*int count = 1;
+void calculate(int a, int b, int c) {
+	
+	printf("%d 번째로 calculate 함수 호출\n", count++);
+	printf("총점 : %d\n", a + b + c);
+	printf("평균 : %.2f\n", (float)(a + b + c) / 3);
+}*///5-2 답
+/*void calculate(int a, int b, int c) {
+	int count = 1;
+	printf("%d 번째로 calculate 함수 호출\n",count++);
+	printf("총점 : %d\n", a + b + c);
+	printf("평균 : %d\n",(a+b+c)/3);
+}*///5-1 답
+/*int main()
+{
+	int Lang=0, En, Math;
+	while (Lang>=0) {
+		printf("국어 영어 수학 점수를 입력하시오 (중단하려면 문자 입력). : ");
+		scanf("%d %d %d", &Lang, &En, &Math);
+		calculate(Lang, En, Math);
+	}
+
+}*/
+
+
+/*int main() {
+	int num[5] = { 36,23,-89,98,30 };
+	int* p = num;
+
+	printf("%d %d %p %d %p", num[1], *(p + 1),p+2,*p+3,&num[4]);
+}*///4 답
+
+
+//int main() {
+	/*int num[5] = { 98,35,23,-36,58 },sum=0;
+	for (int i = 0; i < 5; i++) {
+		sum += num[i];
+	}
+	printf("%d", sum / 5);*///3-1답
+
+	/*int num[5] = { 98,35,23,-36,58 }, sum = 0, *p=num;
+	for (int i = 0; i < 5; i++) {
+		sum += *(p+i);
+	}
+	printf("%d", sum / 5);*///3-2답
+//}
+
+/*int main() {
+	int a[3][3] = { {4,9,3}, {7,1,2},{5,8,6} }, b[3][3] = { {-9,2,6}, {8,7,3},{1,5,-4} };
+	int result[3][3];
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			result[i][j] = a[i][j] + b[i][j];
+		}
+	}
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("%d ", result[i][j]);
+		}printf("\n");
+	}
+}*///2번 답
+
+
+/*int main() {
+	int n[5][5] = {0,}, i, j = 1, count = 1;
+	for (i = 1; i <= 4; i++) {
+		for (j=i; j <= 4; j++) {
+			n[i][j] = count++;
+		}
+	}
+	for (i = 1; i <= 4; i++) {
+		for (j = 1; j <= 4; j++) {
+			printf("%d ", n[i][j]);
+		}printf("\n");
+	}
+}*///1번 답
+
+
+/*void Trans(char res[], int N, int B) {
 	int n = 33;
 	char rest, over[36] = { 0, };
 	for (int i = 10; i < 36; i++) {
@@ -39,7 +345,7 @@ int main()
 	}
 
 	return 0;
-}
+}*/
 /*int GCD(int a, int b) {
 	int result, i=1000000;
 	while (1) {
@@ -106,22 +412,25 @@ int main()
 
 
 
-//int count=0;
-/*void sosu(int n) {
-	int i,t = 0;
-	if (n == 1) return;
-	for (i = 2; i <= n; i++) {
-		if (n % i == 0) t++;
-	}if (t == 1) count++;
-	t = 0;
-	sosu(--n);
-	
-}*/
+/*void sosu(int a,int b) {
+	int i, j, t = 0;
+	for (i = a; i <= b; i++) {
+		for (j = 2; j < a; j++) {
+			if (i % j == 0) t = 1;
 
-/*int main() {
+		}if (t != 1) printf("%d ", i);
+		t = 0;
+	}
+
+
+}
+int main() {
+	sosu(2,30);
+}*/
+/*int count = 0;
+int main() {
 	int n, b,i,t=0;
 	scanf("%d", &n);
-	printf("%d", count);
 	for (b = 2; b <= n; b++) {
 		for (i = 2; i <= n; i++) {
 			if (b % i == 0) {
