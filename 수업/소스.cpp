@@ -6,7 +6,223 @@
 #include <time.h> // time()함수 포함 라이브러리
 #include <string.h>
 
-typedef struct point
+
+typedef struct student {
+	char name[20];
+	float tall, weight;
+	int money;
+}student;
+void change(student *studentp) {
+	if (studentp->tall < 180) studentp->tall = 180;
+	if (studentp->weight > 80)studentp->weight = 80;
+}
+int main() {
+	student stu;
+	scanf("%s %f %f %d", stu.name, &stu.tall, &stu.weight, &stu.money);
+	change(&stu);
+	printf("%s %f %f %d", stu.name, stu.tall, stu.weight, stu.money);
+}
+
+
+/*typedef struct student {
+	char name[20];
+	float tall,weight;
+	int money;
+}student;
+int main() {
+	student student = { "Gildong",173,86.2,0 };
+	printf("이름  = %s %p \n키   = %.1f %p \n몸무게 = %.1f %p \n장학금 = %d %p", student.name, &student.name, student.tall, &student.tall, student.weight, &student.weight, student.money, &student.money);
+}*/
+
+/*typedef struct data {
+	char name[20];
+	int age;
+}buddy;
+int main() {
+	buddy me = { "양성훈",17 };
+	buddy friends;
+	printf("친한 친구의 이름과 나이를 입력하세요. : ");
+	scanf("%s %d", friends.name, &friends.age);
+	printf("당신의 이름: %s, 나이 : %d \n친구의 이름: %s, 나이 : %d", me.name, me.age, friends.name, friends.age);
+}*/
+
+
+/*typedef struct data {
+	char name[20];
+	int age;
+}data;
+int main() {
+	data human;
+	printf("당신의 이름은 무엇입니까? ");
+	scanf("%s", human.name);
+	printf("당신의 나이는 몇 살입니까? ");
+	scanf("%d", human.age);
+	printf("당신의 이름은 %s이고 나이는 %d세이군요.", human.name, human.age);
+}*/
+
+
+/*int gcd(int x, int y) {
+	int r = x % y;
+	if (r == 0) return y;
+	else return gcd(x, r);
+}
+int main() {
+	int x, y;
+	printf("2개 정숫값의 최대 공약수를 구합니다.");
+
+	scanf("%d %d", &x, &y);
+	printf("최대 공약수는 %d입니다.", gcd(x, y));
+}*/
+
+
+/*void rev_strings(char s[][128], int n) {
+	char temp;
+	int end=127, i, j, start=0;
+	for ( i = 0; i < n; i++) {
+		start = 0;
+		for (j = 0; j < 128; j++) {
+			if (s[i][j + 1] == NULL) {
+				end = j;
+				break;
+			}
+		}
+		for (; end>n/2; end--) {
+			temp = s[i][start];
+			s[i][start] = s[i][end];
+			s[i][end] = temp;
+			start++;
+		}
+	}
+}
+int main() {
+	char s[3][128] = { "SEC","ABC","12345" };
+	rev_strings(s, 3);
+	for (int i = 0; i < 3; i++) {
+		printf("s[%d] = ""%s""\n", i, s[i]);
+	}
+}*/
+
+
+
+/*void ary_set(int v[], int n, int val) {
+	for (int i = 0; i < n; i++) {
+		v[i] = val;
+	}
+}
+
+int main() {
+	int v[5] = {1,2,3,4,5};
+	ary_set(&v[2], 2, 99);
+	for (int i = 0; i < 5; i++) {
+		printf("v[%d] = %d\n", i, v[i]);
+	}
+}*/
+
+
+/*int search_idx(const int v[], int index[], int key, int n) {
+	int result = 0;
+	for (int i = 0; i < n; i++) {
+		if (v[i] == key){
+			index[result] = i;
+		result++;
+
+		}
+
+	}
+	return result;
+}
+int main() {
+	int v[7], key, find, index[7] = {-2,-2,-2,-2,-2,-2,-2};
+	for (int n = 0; n < 7; n++) {
+		printf("vx[%d] : ", n);
+		scanf("%d", &v[n]);
+	}
+	printf("찾을 값 : ");
+	scanf("%d", &key);
+	find = search_idx(v, index, key, 7);
+	if (find >= 0) {
+		printf("%d은(는) %d개 있습니다.\n", key, find);
+		for (int i = 0; i < 7; i++) {
+			if (index[i] != -2)
+				printf("vx[%d] = %d\n", index[i],v[index[i]]);
+		}
+	}
+	else printf("탐색에 실패했습니다.");
+
+}*/
+
+/*int searchr(const int v[], int key, int n) {
+	int result=-1;
+	for (int i = 0; i < n; i++) {
+		if (v[i] == key)result = i+1;
+	}
+	return result;
+}
+int main() {
+	int v[5],key,find;
+	for (int n = 0; n < 5; n++) {
+		printf("vx[%d] : ", n);
+		scanf("%d", &v[n]);
+	}
+	printf("찾을 값 : ");
+	scanf("%d", &key);
+	find = searchr(v, key, 5);
+	if (find >= 0) printf("%d은(는) %d번째에 있습니다.", key, find);
+	else printf("탐색에 실패했습니다.");
+}*/
+
+/*int main() {
+	int grade[7];
+	printf("7명의 점수를 입력하시오 : \n");
+	for (int i = 0; i < 7; i++){
+		printf("%d : ", i + 1);
+		scanf("%d", &grade[i]);
+	}
+	printf("합격자 목록\n");
+	for (int i = 0; i < 7; i++) {
+		if (grade[i] >= 60) printf("%d번 : %d\n", i + 1, grade[i]);
+	}
+}*/
+
+
+
+
+/*int count = 0;
+void put_count(int num) {
+	if (num == 0) return;
+	count++;
+	printf("put_count : %d회\n",count);
+	put_count(--num);
+}
+
+
+int main() {
+	int n;
+	printf("호출 횟수 : ");
+	scanf("%d", &n);
+	put_count(n);
+}*/
+/*int main() {
+	int math[6], lang[6];
+	int mathsum = 0, langsum = 0, sum = 0;
+	printf("6명의 점수를 입력하세요.");
+	for (int i = 0; i < 6; i++) {
+		printf("\n%d번_국어: ",i+1);
+		scanf("%d",&lang[i]);
+		printf("    수학: ");
+		scanf("%d", &math[i]);
+	}
+	printf("-------------------------------------------- \n번호	국어	수학	합계	평균 \n-------------------------------------------- \n");
+	for (int i = 0; i < 6; i++) {
+		printf("%d	%d	%d	%d	%.1lf\n", i + 1, lang[i], math[i], lang[i]+math[i], ((double)lang[i] + math[i]) / 2);
+		mathsum += math[i]; langsum += lang[i]; sum += lang[i] + math[i];
+	}
+	printf("합계	%d	%d	%d\n", langsum, mathsum, sum);
+	printf("평균	%f	%f	%f", (float)langsum / 6, (float)mathsum / 6, (float)sum / 6);
+
+}*/
+
+/*typedef struct point
 {
 	int xpos;
 	int ypos;
@@ -51,7 +267,7 @@ int main()
 	ShowRecPos(rec1);
 	ShowRecArea(rec2);
 	ShowRecPos(rec2);
-}
+}*/
 
 /*typedef struct Point {
 	int xpos;
@@ -170,9 +386,8 @@ int main() {
 	int data[10] = { 5,2,3,7,1,9,4,6,8,10 },k;
 	scanf("%d", &k);
 	sort(data, k);
-
+	
 }*/
-
 
 
 
@@ -243,19 +458,19 @@ void calculate(int a, int b, int c) {
 	printf("%d 번째로 calculate 함수 호출\n", count++);
 	printf("총점 : %d\n", a + b + c);
 	printf("평균 : %.2f\n", (float)(a + b + c) / 3);
-}*///5-2 답
-/*void calculate(int a, int b, int c) {
+}//5-2 답
+void calculate2(int a, int b, int c) {
 	int count = 1;
 	printf("%d 번째로 calculate 함수 호출\n",count++);
 	printf("총점 : %d\n", a + b + c);
 	printf("평균 : %d\n",(a+b+c)/3);
-}*///5-1 답
-/*int main()
+}//5-1 답
+int main()
 {
 	int Lang=0, En, Math;
-	while (Lang>=0) {
+	while (1) {
 		printf("국어 영어 수학 점수를 입력하시오 (중단하려면 문자 입력). : ");
-		scanf("%d %d %d", &Lang, &En, &Math);
+		if (scanf("%d %d %d", &Lang, &En, &Math) == 0) return 0;
 		calculate(Lang, En, Math);
 	}
 
