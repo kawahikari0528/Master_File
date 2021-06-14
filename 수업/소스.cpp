@@ -6,8 +6,123 @@
 #include <time.h> // time()함수 포함 라이브러리
 #include <string.h>
 
+typedef struct book {
+	char name[20];
+	char writername[20];
+	char chulpan[20];
+	char date[8];
+	int price;
+}book;
+int main() {
+	book Book;
+	scanf("%s %s %s %s %d", Book.name, Book.writername, Book.chulpan, Book.date, &Book.price);
+	printf("%s %s %s %s %d", Book.name, Book.writername, Book.chulpan, Book.date, Book.price);
+}
 
-typedef struct student {
+/*typedef struct student {
+	int stuno;
+	char name[20];
+	char grade;
+}stu;
+void printstudent(stu a) {
+	printf("%d %s %c", a.stuno, a.name, a.grade);
+}
+int main() {
+	stu s = { 1,"Hong Gil Dong",'A' };
+	printstudent(s);
+}*/
+
+
+/*typedef struct aaaa {
+	int stuno;
+	char name[20];
+	char grade;
+}aaaa;
+int main() {
+
+	aaaa aaa;
+	aaaa* aaap = &aaa;
+	aaa = { 1,"Hong Gil Dong",'A' };
+	printf("%d %s %c\n", aaa.stuno, aaa.name, aaa.grade);
+	printf("%d %s %c\n", aaap-> stuno, aaap-> name, aaap->grade);
+	printf("%d %s %c\n", (*aaap).stuno , (*aaap).name, (*aaap).grade);
+}*/
+
+
+/*typedef struct sturec {
+	int stuno;
+	char name[20];
+	int Kor, Eng, Math, total;
+	double avg;
+	int rank;
+}sturec;
+int main() {
+	sturec s[5];
+	for (int i = 0; i < 5; i++) {
+		printf("학생의 학번 성명 국어 영어 수학 점수를 입력하세요 : ");
+		scanf("%d %s %d %d %d",&s[i].stuno,s[i].name,&s[i].Kor,&s[i].Eng,&s[i].Math);
+		s[i].total = s[i].Kor + s[i].Eng + s[i].Math;
+		s[i].avg = (double)s[i].total / 3;
+	}
+	for (int i = 0; i < 5; i++) {
+		int count=1;
+		for (int j = 0; j < 5; j++) {
+			if (s[i].avg < s[j].avg) count++;
+		}
+		s[i].rank = count;
+		printf("%d %s %d %d %d %d %.2lf %d\n", s[i].stuno, s[i].name, s[i].Kor, s[i].Eng, s[i].Math, s[i].total, s[i].avg, s[i].rank);
+	}
+	
+}*/
+
+/*typedef struct money {
+	int number;
+	int won;
+}money;
+int main() {
+	money m[5];
+	int max=0,index;
+	for (int i = 0; i < 5; i++) {
+		printf("\n%d번 저축금액은? ", i + 1);
+		m[i].number = i + 1;
+		scanf("%d", &m[i].won);
+		max = (max > m[i].won) ? max : m[i].won;
+	}
+	for (int i = 0; i < 5; i++) {
+		if (max == m[i].won) index = i+1;
+
+	}
+	printf("\n저축왕 %d번 %d원", index, max);
+
+}*/
+
+/*int main() {
+	char c[100] = { 0 };
+	int count = 0;
+	scanf("%[^\n]s", c);
+	for (int i = 0; c[i] != 0; i++) {
+		count++;
+	}
+	printf("입력받은 문자열의 길이는 %d입니다.\n", count);
+	for (int i = count; i >= 0; i--) {
+		printf("%c", c[i]);
+	}
+}*/
+
+
+/*int main() {
+	char c[100] = {0};
+	scanf("%[^\n]s", c);
+	for (int i = 0 ; c[i]!=0; i++) {
+		if (c[i] == 32) printf("\n");
+		else printf("%c", c[i]);
+	}
+}*/
+
+
+
+
+/*typedef struct student {
 	char name[20];
 	float tall, weight;
 	int money;
@@ -21,7 +136,7 @@ int main() {
 	scanf("%s %f %f %d", stu.name, &stu.tall, &stu.weight, &stu.money);
 	change(&stu);
 	printf("%s %f %f %d", stu.name, stu.tall, stu.weight, stu.money);
-}
+}*/
 
 
 /*typedef struct student {
@@ -95,7 +210,7 @@ int main() {
 	}
 }
 int main() {
-	char s[3][128] = { "SEC","ABC","12345" };
+	char s[3][128] = { "SEC","ABC","1234" };
 	rev_strings(s, 3);
 	for (int i = 0; i < 3; i++) {
 		printf("s[%d] = ""%s""\n", i, s[i]);
@@ -125,9 +240,7 @@ int main() {
 		if (v[i] == key){
 			index[result] = i;
 		result++;
-
 		}
-
 	}
 	return result;
 }
@@ -140,7 +253,7 @@ int main() {
 	printf("찾을 값 : ");
 	scanf("%d", &key);
 	find = search_idx(v, index, key, 7);
-	if (find >= 0) {
+	if (find > 0) {
 		printf("%d은(는) %d개 있습니다.\n", key, find);
 		for (int i = 0; i < 7; i++) {
 			if (index[i] != -2)
@@ -171,17 +284,23 @@ int main() {
 	else printf("탐색에 실패했습니다.");
 }*/
 
-/*int main() {
+
+
+/*void print(int grade[]) {
+	printf("합격자 목록\n");
+	for (int i = 0; i < 7; i++) {
+		if (grade[i] >= 60) printf("%d번 : %d\n", i + 1, grade[i]);
+	}
+}
+int main() {
 	int grade[7];
 	printf("7명의 점수를 입력하시오 : \n");
 	for (int i = 0; i < 7; i++){
 		printf("%d : ", i + 1);
 		scanf("%d", &grade[i]);
 	}
-	printf("합격자 목록\n");
-	for (int i = 0; i < 7; i++) {
-		if (grade[i] >= 60) printf("%d번 : %d\n", i + 1, grade[i]);
-	}
+	print(grade);
+
 }*/
 
 
