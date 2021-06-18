@@ -6,7 +6,96 @@
 #include <time.h> // time()함수 포함 라이브러리
 #include <string.h>
 
-typedef struct book {
+int main()
+{
+	int i, arr[] = { 10,9,8,7,6,5,4,3,2,1 };
+	int* ptr = arr;
+	int len = sizeof(arr) / sizeof(int);
+
+
+
+	printf("%d %d %d\n\n", len, sizeof(arr), sizeof(int));
+	for (i = 0; i < len; i++) {
+		printf("ptr+i : %p, *(ptr+i) : %d, arr : %p\n", ptr + i, *(ptr + i), arr);
+		*(ptr + i) *= 2;
+	}
+
+	for (i = 0; i < len; i++) {
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+	return 0;
+}
+
+/*int main() {
+	int arr[4] = { 4,3,2,1 };
+	int* pArr;
+	pArr = (int*)malloc(sizeof(int) * 4);
+
+	if (pArr == NULL) {
+		printf("malloc error");
+	}
+	for (int i = 0; i < 4; i++) {
+		pArr[i] = arr[i];
+	}
+	for (int i = 0; i < 4; i++) {
+		printf("%d \n", pArr[i]);
+	}
+	free(pArr);
+	system("pause");
+}*/
+
+
+
+/*int main() {
+	enum Days {
+		Sunday = 1,Monday,Tue,W,T,F,S
+	};
+	enum Days TheDay;
+	int j = 0;
+	printf("다음 동작을 선택해주세요 \n1.Attack 2.Move 3.Jump 4.Hide \n>>");
+	scanf("%d", &j);
+	TheDay = Days(j);
+	if (TheDay == Sunday || TheDay == S)
+		printf("주말");
+	else printf("평일");
+}*///열거형
+
+/*typedef union rdbuf {
+	int  ibuf[2];
+	char str[8];
+}rdbuf;
+
+int main() {
+	rdbuf buf = { 0 };
+	buf.ibuf[0] = 1819043144;
+	buf.ibuf[1] = 6184559;
+	printf("%s\n", buf.str);
+}*/
+
+
+
+/*typedef union ubox {
+	int mem1;
+	int mem2;
+	double mem3;
+}ubox;
+
+int main() {
+	ubox ubx = { 0 };
+	ubx.mem1 = 20;
+	printf("mem1 : %d\n", ubx.mem1);
+	printf("mem2 : %d\n", ubx.mem2);
+	printf("mem3 : %lf\n", ubx.mem3);
+	ubx.mem3 = 7.15;
+
+	printf("mem1 : %d\n", ubx.mem1);
+	printf("mem2 : %d\n", ubx.mem2);
+	printf("mem3 : %lf\n", ubx.mem3);
+	return 0;
+}*/
+
+/*typedef struct book {
 	char name[20];
 	char writername[20];
 	char chulpan[20];
@@ -17,7 +106,7 @@ int main() {
 	book Book;
 	scanf("%s %s %s %s %d", Book.name, Book.writername, Book.chulpan, Book.date, &Book.price);
 	printf("%s %s %s %s %d", Book.name, Book.writername, Book.chulpan, Book.date, Book.price);
-}
+}*/
 
 /*typedef struct student {
 	int stuno;
