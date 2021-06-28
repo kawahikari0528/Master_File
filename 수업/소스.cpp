@@ -6,7 +6,211 @@
 #include <time.h> // time()함수 포함 라이브러리
 #include <string.h>
 
-int main()
+
+
+void exchange(int* a, int* b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+void upper(int n[]) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (n[j] > n[j + 1])exchange(&n[j], &n[j + 1]);
+		}
+	}
+	for (int i = 0; i < 5; i++) {
+		printf("%d ", n[i]);
+	}
+}
+int main() {
+	int a, b;
+	scanf("%d %d", &a, &b);
+	exchange(&a, &b);
+	printf("%d %d\n", a, b);
+
+	int n[5] = { 1,3,9,4,2 };
+	upper(n);
+}
+
+/*typedef struct money {
+	int number;
+	int won;
+}money;
+money Max(money arr[], int n) {
+	money maxdata = arr[0];
+	for (int i = 0; i < n; i++)
+		maxdata = (maxdata.won > arr[i].won) ? maxdata : arr[i];
+	return maxdata;
+}
+int main() {
+	money F[5];
+
+	for (int i = 0; i < 5; i++) {
+		printf("%d번 저축금액은? ", i + 1);
+		scanf("%d", &F[i].won);
+		F[i].number = i + 1;
+	}
+	money max = Max(F, 5);
+	printf("저축왕 %d번 %d원", max.number, max.won);
+}*/
+
+
+
+
+/*typedef struct human {
+	char name[20];
+	int age;
+}human;
+int main() {
+	human I = { "양성훈",17 };
+	human F;
+	printf("친한 친구의 이름과 나이를 입력하세요");
+	scanf("%s %d", F.name, &F.age);
+	printf("당신의 이름 : %s, 나이 : %d \n친구의 이름 : %s, 나이 : %d", I.name, I.age, F.name, F.age);
+}*/
+
+
+
+/*int main() {
+	char c[100] = { 0, };
+	scanf("%[^\n]s", c);
+	for (int i = 0; c[i] != 0; i++) {
+		if (c[i] == 32) printf("\n");
+		else printf("%c", c[i]);
+	}
+}*/
+
+
+/*int main() {
+	int end=0,  fin=0;
+	char c[100] = {0};
+	scanf("%s", c);
+	for (int i = 0; i < 100; i++) {
+		if (c[i] != 0) {
+			end = i;
+			fin = end;
+		}
+	}
+	for (int i = 0; i <= fin/2; i++) {
+		char temp = c[i];
+		c[i] = c[end];
+		c[end] = temp;
+		end--;
+	}
+	printf("입력받은 문자열의 길이는 %d입니다. \n%s", fin+1, c);
+
+}*/
+
+
+/*int main() {
+	char n[10] = { 0, }, sum = 0;
+	scanf("%s", n);
+	for (int i = 0; i < 9; i++) {
+		sum += n[i] - 48;
+	}
+	printf("%d", sum);
+	return 0;
+}*/
+
+/*int pibo(int n) {
+	if (n < 3)return 1;
+	else return pibo(n - 1) + pibo(n - 2);
+}
+int main() {
+	int n,result;
+	scanf("%d", &n);
+	result = pibo(n);
+	printf("%d", result);
+}*/
+
+/*int count = 1;
+void jaegwi(int n) {
+	
+	printf("%d ", count++);
+	if (n <= 1) return;
+	else
+	jaegwi(n-1);
+}
+int main() {
+	int n;
+	scanf("%d", &n);
+	jaegwi(n);
+}*/
+
+
+
+/*int main() {
+
+	int a[3] = { 0, } ,check=1;
+
+	printf("세 과목의 점수를 입력하세요.");
+	for (int i = 0; i < 3; i++) {
+		scanf("%d", &a[i]);
+		if (a[i] < 40) check = 0;
+	}
+	float result = (a[0] + a[1] + a[2]) / 3;
+
+	if (!check || result < 60) {
+		printf("불합격");
+	}
+	else printf("합격");
+}*/
+
+
+/*float total(int a[]) {
+	float result = a[0] + a[1] + a[2];
+	return result / 3;
+}
+int main() {
+	int a[3] = { 0, };
+	float result;
+	printf("세 과목의 점수를 입력하세요.");
+	for (int i = 0; i < 3; i++) {
+		scanf("%d", &a[i]);
+
+	}
+	result = total(a);
+	printf("평균 %.2f", result);
+
+}*/
+
+
+/*int main() {
+	int a[10] = { 0, }, n;
+	do {
+
+		scanf("%d", &n);
+		if(n!=0)
+		a[n % 10]++;
+
+	} while (n != 0);
+	for (int i = 0; i < 10; i++) {
+		if (a[i] != 0) {
+			printf("%d : %d개\n", i, a[i]);
+		}
+	}
+}*///2번답
+
+
+/*int main() {
+	int a[10] = { 0, };
+	int n;
+	do {
+
+		scanf("%d", &n);
+		if(n > 0 && n <= 10)a[n - 1]++;
+		
+	} while (n > 0 && n <= 10);
+	for (int i = 0; i < 10; i++) {
+		if (a[i] != 0) {
+			printf("%d : %d개\n", i + 1, a[i]);
+		}
+	}
+}*///1번 답
+
+
+/*int main()
 {
 	int i, arr[] = { 10,9,8,7,6,5,4,3,2,1 };
 	int* ptr = arr;
@@ -25,7 +229,7 @@ int main()
 	}
 	printf("\n");
 	return 0;
-}
+}*/
 
 /*int main() {
 	int arr[4] = { 4,3,2,1 };
