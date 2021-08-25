@@ -1,4 +1,6 @@
 #pragma warning(disable: 4996)
+#pragma warning(disable:6011)
+#pragma warning(disable:6031)
 #include<stdio.h>
 #include<windows.h>
 #include <stdlib.h>
@@ -8,7 +10,316 @@
 
 
 
-void exchange(int* a, int* b) {
+typedef struct ListNode {
+	int data;
+	struct ListNode* link;
+}listnode;
+
+typedef struct {
+	listnode* head;
+}headnode;
+
+
+headnode* createlisthead() {
+	headnode* L;
+	L = (headnode*)malloc(sizeof(headnode));
+	L->head = NULL;
+	return L;
+}//head만들기
+
+void create(headnode* first, int value) {
+	listnode* list = (listnode*)malloc(sizeof(listnode));
+
+	listnode* temp = first->head;
+
+	list->data = value;
+
+
+	if (first->head == NULL) {
+		list->link = first->head;
+		first->head = list;
+		return;
+	}
+	else if (temp->data>value) {
+		list->link = first->head;
+		first->head = list;
+	}
+	else 
+	{
+		while (temp->data < value)
+		{
+			if (temp->link == NULL || temp->link->data > value)
+				break;
+			temp = temp->link;
+
+		} 
+		list->link = temp->link;
+		temp->link = list;
+		return;
+	}
+
+
+}
+//처음에 만들기
+
+
+
+
+
+void NodeDelete(headnode* first, int value) {
+	if (first->head == NULL) {
+		printf("빈 리스트를 갖고 뭐하잔거니?\n");
+		return;
+	}
+	listnode* del = first->head;
+	listnode* temp = first->head;
+
+
+	while (del->data != value) {
+		if (del->link == NULL) {
+			printf("삭제할 노드가 읎네요 에러입니당\n");
+			return;
+		}
+		temp = del;
+		del = del->link;
+
+		printf("del : %d\n",del->data);
+	}
+	printf("탈출\n");
+	if (del == first->head) {
+		first->head = del->link;
+	}
+	else temp->link = del->link;
+
+	free(del);
+	return;
+}
+
+void PrintList(headnode* List) {
+	if (List->head == NULL) {
+		printf("Head -> NULL\n");
+		return;
+	}
+	else {
+		printf("Head -> ");
+	}
+	listnode* printer = List->head;
+
+	while (printer->link != NULL) {
+		printf("%d -> ", printer->data);
+		printer = printer->link;
+	} 
+	printf("%d -> ", printer->data);
+	printf("NULL\n");
+}
+
+
+void DeleteAll(listnode* save) {
+	if (save->link == NULL) {
+		printf("삭제 %d\n", save->data);
+		free(save);
+		return;
+	}
+	listnode* next = save->link;
+	printf("삭제 %d\n", save->data);
+	free(save);
+	DeleteAll(next);
+}
+
+int main() {
+	headnode* head = createlisthead();
+	int n,value;
+
+	printf("1.삽입 2.삭제 3.출력 4.전부 삭제 입력\n");
+	while (scanf("%d", &n)) {
+		switch (n) {
+		case 1:
+			printf("삽입할 숫자 입력 : ");
+			scanf("%d", &value);
+			create(head,value);
+			break;
+		case 2:
+			printf("삭제할 숫자 입력 : ");
+			scanf("%d", &value);
+			NodeDelete(head,value);
+			break;
+		case 3:
+			PrintList(head);
+			break;
+		case 4:
+			DeleteAll(head->head);
+			head->head = NULL;
+			break;
+		}
+	}
+	DeleteAll(head->head);
+	free(head);
+}
+
+/*void Delete(int a[], int n) {
+	int tmp;
+	for (int i = 0; i < 10; i++) {
+		if (a[i] == n) a[i] = NULL;
+	}
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9 - i; j++) {
+			if (a[j] == NULL) {
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;;
+			}
+			if (a[j] > a[j + 1]) {
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;;
+			}
+		}
+	}
+}
+void Add(int a[],int n) {
+	int tmp;
+	for (int i = 0; i < 10; i++) {
+		if (a[i] == NULL) {
+			a[i] = n;
+			break;
+		}
+	}
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9 - i; j++) {
+			if (a[j] == NULL) {
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;;
+			}
+			if (a[j] > a[j + 1]) {
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;;
+			}
+		}
+	}
+}
+int main() {
+	int a[10] = { 1,2,5,6,8,10,NULL,NULL,NULL,NULL}, n, c;
+	for (int i = 0; i < 10; i++) {
+		printf("%d  ", a[i]);
+	}
+	printf("\n");
+	printf("숫자 여부 (양수는 삽입 음수는 삭제 0이면 종료)\n");
+	do {
+		scanf("%d %d", &n, &c);
+		if (c < 0) {
+			Delete(a, n);
+		}
+		else if (c > 0) {
+			Add(a, n);
+		}
+		for (int i = 0; i < 10; i++) {
+			printf("%d  ", a[i]);
+		}
+		printf("\n");
+
+	} while (c != 0);
+
+ }*/
+/*int iii(int n) {
+	if (n % 10 == 0) {
+
+		return 10;
+	}
+	else 
+	return 1;
+}
+int main() {
+	int a, b, i3, i4, i5, i6;
+	scanf("%d %d", &a, &b);
+	i3 = a * (b % 10);
+	i4 = a * (b - ((b / 100) * 100 + (b % 10)));
+
+	i5 = a * ((b / 100) * 100);
+	i6 = a * b;
+
+	i4 = i4 / iii(i4);
+	i5 = i5 / iii(i5);
+	i5 = i5 / iii(i5);
+	printf("%d \n%d \n%d \n%d", i3, i4, i5, i6);
+}*/
+/*char c[1000000] = { 0, };
+int result[400000] = { 0 }, count = 0, count2 = 0, length = 0, num = 1;
+int main() {
+
+
+	int check = 0;
+	scanf("%s", c);
+	int i = 0;
+	for (; c[i + 1] != 0; i++) {
+		length++;
+	}
+
+	for (; i >= 0; i--) {
+
+
+		if (c[i] == 49) {
+			result[count2] += num;
+
+		}
+		num *= 2;
+
+
+		count++;
+		if (count == 3) {
+			count = 0;
+			num = 1;
+			count2++;
+		}
+	}
+
+	for (int i = 399999; i >= 0; i--) {
+		if (check || result[i] != 0) {
+			check = 1;
+			printf("%d", result[i]);
+		}
+		
+
+
+	}if (check == 0) printf("0");
+}*/
+
+
+
+
+/*int main() {
+	int  count2=0;
+	int score[100] = { 0 };
+	int n;
+	char c[100][80] = {0};
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%s", c[i]);
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < 100 && c[i][j] != 0; j++) {
+			
+			if (c[i][j] == 79) {
+				count2++;
+				score[i] += count2;
+			}
+				
+			else count2 = 0;
+
+			
+		}
+		count2 = 0;
+	}
+	for (int i = 0; i < n; i++) {
+		printf("%d\n", score[i]);
+	}
+}*/
+
+
+
+
+/*void exchange(int* a, int* b) {
 	int temp = *a;
 	*a = *b;
 	*b = temp;
@@ -31,7 +342,7 @@ int main() {
 
 	int n[5] = { 1,3,9,4,2 };
 	upper(n);
-}
+}*/
 
 /*typedef struct money {
 	int number;
