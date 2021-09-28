@@ -1,16 +1,337 @@
 #pragma warning(disable: 4996)
 #pragma warning(disable:6011)
 #pragma warning(disable:6031)
-#include<stdio.h>
 #include<windows.h>
+//#include<math.h>
+//#include <time.h> // time()함수 포함 라이브러리
+//#include <string.h>
+#include<stdio.h>
 #include <stdlib.h>
-#include<math.h>
-#include <time.h> // time()함수 포함 라이브러리
-#include <string.h>
+
+#define QUEUE_SIZE 10
+int rear = 0, front = 0;
+int Q[QUEUE_SIZE];
+
+
+bool IsEmpty() {
+	if (front == rear) return true;
+	else return false;
+}
+
+bool IsFull() {
+	if ((rear + 1) % QUEUE_SIZE == front) {
+		printf("꽉 참\n");
+		return true;
+	}
+	else return false;
+}
+
+void enQueue(int value) {
+	if (IsFull()) return;
+	else {
+		rear = (rear + 1) % QUEUE_SIZE;
+		Q[rear] = value;
+		return;
+	}
+}
+
+void deQueue() {
+	if (IsEmpty()) return;
+	else {
+		front = (front + 1) % QUEUE_SIZE;
+		printf("%d 삭제됨", Q[front]);
+		Q[front] = NULL;
+
+		return;
+	}
+}
+
+void printQ() {
+	if (IsEmpty()) {
+		printf("비었음\n");
+		return;
+	}
+	else {
+		for (int i = front + 1; i <= rear; i = (i+1)%QUEUE_SIZE) {
+			printf("%d ", Q[i]);
+		}
+
+	}
+	printf("\n");
+}
+
+
+int main() {
+	int n, value;
+
+	printf("1. 인큐 2. 디큐 3. 프린트 else. 종료 \n입력 : ");
+
+	while (scanf("%d", &n)) {
+		switch (n)
+		{
+		case 1:
+			printf("삽입할 값 : ");
+			scanf("%d", &value);
+			enQueue(value);
+			break;
+		case 2:
+			deQueue();
+			break;
+		case 3:
+			printQ();
+			break;
+		default:
+			return 0;
+		}
+		printf("\n\n1. 인큐 2. 디큐 3. 프린트 else. 종료 \n입력 : ");
+	}
+}
+/*
+#define STACK_SIZE 10
+int top = -1;
+int stack[STACK_SIZE];
+
+
+int IsEmpty() {
+	if (top == -1)
+		return true;
+	else return false;
+}
+
+int IsFull() {
+	if (top == STACK_SIZE - 1) return true;
+	else return false;
+}
+
+void Push(int value) {
+	if (IsFull()) {
+		printf("꽉 참\n");
+		return;
+	}
+	else {
+		stack[++top] = value;
+		printf("%d pushed\n", value);
+	}
+}
+void pop(int value) {
+	if (IsEmpty()) {
+		printf("비었음\n");
+		return;
+	}
+	else{
+		stack[top--] = NULL;
+		printf("pop %d\n", value);
+	}
+}
+
+void print() {
+	if (IsEmpty()) {
+		printf("비었음\n");
+		return;
+	}
+	else {
+		printf("\n\n");
+		for (int n = top; n >= 0; n--) {
+			printf("%d :| %d |\n", n, stack[n]);
+		}
+		printf("   ㅡㅡ\n");
+	}
+
+}
+
+
+int main() {
+	int n,value;
+	printf("1: push 2: pop 3. print  /else Exit\n");
+	while (scanf("%d", &n)) {
+		switch (n) {
+		case 1:
+			printf("push value : ");
+			scanf("%d", &value);
+			Push(value);
+			break;
+		case 2:
+			printf("pop value : ");
+			scanf("%d", &value);
+			pop(value);
+			break;
+		case 3:
+			print();
+		}
+
+	}
+}*/
+
+
+/*typedef struct ListNode {
+	int data;
+	struct ListNode* link;
+}listnode;
+
+typedef struct {
+	listnode* head;
+}headnode;
 
 
 
-typedef struct ListNode {
+
+headnode* createlisthead() {
+	headnode* L;
+	L = (headnode*)malloc(sizeof(headnode));
+	L->head = NULL;
+	return L;
+}//head만들기
+
+listnode* Findlastnode(headnode* first) {
+	listnode* last = first->head;
+	while (last->link != first->head) {
+		last = last->link;
+	}
+	return last;
+}
+
+void create(headnode* first, int value) {
+	listnode* list = (listnode*)malloc(sizeof(listnode));
+
+	listnode* temp = first->head;
+
+	list->data = value;
+
+
+	if (first->head == NULL) {
+		list->link = list;
+		first->head = list;
+		return;
+	}
+	else if (temp->data > value) {
+		listnode* last = Findlastnode(first);
+		list->link = last->link;
+		last->link = list;
+		first->head = list;
+	}
+	else
+	{
+		while (temp->data < value)
+		{
+			if (temp->link == first->head || temp->link->data > value)
+				break;
+			temp = temp->link;
+
+		}
+
+		list->link = temp->link;
+		temp->link = list;
+		return;
+	}
+
+
+}
+//처음에 만들기
+
+
+
+
+
+void NodeDelete(headnode* first, int value) {
+	if (first->head == NULL) {
+		printf("빈 리스트입니다\n");
+		return;
+	}
+	listnode* del = first->head;
+	listnode* temp = first->head;
+	listnode* last = Findlastnode(first);
+
+	while (del->data != value) {
+		if (del->link == first->head) {
+			printf("삭제할 노드가 없습니다.\n");
+			return;
+		}
+		temp = del;
+		del = del->link;
+
+
+	}
+
+
+	if (del == first->head) {
+		last->link = del->link;
+		first->head = del->link;
+	}
+	else temp->link = del->link;
+	printf("del : %d\n", del->data);
+	if (del->link == del) {
+		first->head = NULL;
+	}
+
+	free(del);
+	return;
+}
+
+void PrintList(headnode* List, int value) {
+	if (List->head == NULL) {
+		printf("빈 리스트입니다\n");
+		return;
+	}
+	else {
+		printf("Head -> ");
+	}
+	listnode* printer = List->head;
+	for (int i = 0; i < value; i++) {
+
+		while (printer->link != List->head) {
+			printf("%d -> ", printer->data);
+			printer = printer->link;
+		}
+		printf("%d -> ", printer->data);
+		printer = printer->link;
+	}
+
+
+	printf(". . . \n출력 끗\n");
+}
+
+
+
+
+int main() {
+	headnode* head = createlisthead();
+	int n, value;
+	printf("1.삽입 2.삭제 3.출력 (0이나 숫자가 아닌 것을 입력할시 종료)\n");
+	while (scanf("%d", &n)) {
+
+		switch (n) {
+		case 0:
+			free(head);
+			return 0;
+			break;
+		case 1:
+			printf("삽입할 숫자 입력 : ");
+			scanf("%d", &value);
+			create(head, value);
+			break;
+		case 2:
+			printf("삭제할 숫자 입력 : ");
+			scanf("%d", &value);
+			NodeDelete(head, value);
+			system("pause");
+			break;
+		case 3:
+			printf("리스트를 반복출력할 횟수 입력 : ");
+			scanf("%d", &value);
+			PrintList(head,value);
+			system("pause");
+			break;
+		}
+
+		system("cls");
+		printf("1.삽입 2.삭제 3.출력 (숫자가 아닌 것을 입력할시 종료)\n");
+	}
+
+	free(head);
+}*///원형 리스트
+
+
+/*typedef struct ListNode {
 	int data;
 	struct ListNode* link;
 }listnode;
@@ -68,7 +389,7 @@ void create(headnode* first, int value) {
 
 void NodeDelete(headnode* first, int value) {
 	if (first->head == NULL) {
-		printf("빈 리스트를 갖고 뭐하잔거니?\n");
+		printf("빈 리스트입니다\n");
 		return;
 	}
 	listnode* del = first->head;
@@ -77,7 +398,7 @@ void NodeDelete(headnode* first, int value) {
 
 	while (del->data != value) {
 		if (del->link == NULL) {
-			printf("삭제할 노드가 읎네요 에러입니당\n");
+			printf("삭제할 노드가 없습니다.\n");
 			return;
 		}
 		temp = del;
@@ -97,7 +418,7 @@ void NodeDelete(headnode* first, int value) {
 
 void PrintList(headnode* List) {
 	if (List->head == NULL) {
-		printf("Head -> NULL\n");
+		printf("빈 리스트입니다\n");
 		return;
 	}
 	else {
@@ -114,7 +435,11 @@ void PrintList(headnode* List) {
 }
 
 
-void DeleteAll(listnode* save) {
+void DeleteAll(headnode* first,listnode* save) {
+	if (first->head == NULL) {
+		printf("빈 리스트\n");
+		return;
+	}
 	if (save->link == NULL) {
 		printf("삭제 %d\n", save->data);
 		free(save);
@@ -123,15 +448,15 @@ void DeleteAll(listnode* save) {
 	listnode* next = save->link;
 	printf("삭제 %d\n", save->data);
 	free(save);
-	DeleteAll(next);
+	DeleteAll(first,next);
 }
 
 int main() {
 	headnode* head = createlisthead();
 	int n,value;
-
-	printf("1.삽입 2.삭제 3.출력 4.전부 삭제 입력\n");
+	printf("1.삽입 2.삭제 3.출력 4.전부 삭제 (숫자가 아닌 것을 입력할시 종료)\n");
 	while (scanf("%d", &n)) {
+
 		switch (n) {
 		case 1:
 			printf("삽입할 숫자 입력 : ");
@@ -147,14 +472,17 @@ int main() {
 			PrintList(head);
 			break;
 		case 4:
-			DeleteAll(head->head);
+			DeleteAll(head,head->head);
 			head->head = NULL;
+			break;
+		default:
+			break;
 			break;
 		}
 	}
-	DeleteAll(head->head);
+	DeleteAll(head,head->head);
 	free(head);
-}
+}*///단일 리스트
 
 /*void Delete(int a[], int n) {
 	int tmp;
